@@ -23,6 +23,7 @@ export function addSSEClient(req, res) {
 }
 
 function send() {
+    console.log(">send",clientData.length);
     clientData.forEach(o => {
         const data = Object.assign({
             "client count": clientData.length,
@@ -31,8 +32,8 @@ function send() {
         delete data.res;
         o.res.write(`data: ${JSON.stringify(data)}\n\n`);
     });
-
-    setTimeout(send, 1300);
+    console.log("<send");
+    setTimeout(send, 990);
 }
 
 
