@@ -16,21 +16,20 @@ function addToList(data, list) {
     list.splice(1);
 }
 
-export function display(data) {
-    if (data.private) {
-        addToList(data, targeted);
-        privateDiv.innerHTML = objectsToTable(targeted,"private message");
-
-    } else {
-        addToList(data, broadcast);
-        broadcastDiv.innerHTML = objectsToTable(broadcast,"broadcast message");
-    }
+export function displayWS(data) {
+    addToList(data, targeted);
+    privateDiv.innerHTML = objectsToTable(targeted, "ws message");
 }
 
-export function objectsToTable(ar,caption) {
+export function displaySSE(data) {
+    addToList(data, broadcast);
+    broadcastDiv.innerHTML = objectsToTable(broadcast, "sse message");
+}
+
+export function objectsToTable(ar, caption) {
     if (!ar.length) return '';
 
-    const cols = Object.keys(ar[0]).filter(k=>k!=='private').sort();
+    const cols = Object.keys(ar[0]).filter(k => k !== 'private').sort();
     return `<table><caption>${caption}</caption>` + cols.reduce((t, col) => t + `<th>${col}</th>`, '<tr>') + '</tr>'
         + ar.reduce((t, o) => t
             + cols.reduce((row, col) => row + td(o[col]), '<tr>') + '</tr>', '')

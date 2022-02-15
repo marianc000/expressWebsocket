@@ -1,39 +1,40 @@
 import { now } from './time.js';
 
+let clients;
 let clientData = [];
-let serverClients;
 
-export function startPrivate(clients) {
-    serverClients = clients;
+export function initWS(allClients) {
+    clients = allClients;
     setTimeout(send);
 }
 
 function remove(ws) {
-    console.log('WebSocket was closed');
+    console.log('websocket closed');
     clientData = clientData.filter(o => o.ws !== ws);
 }
+let sequence=1;
 
-export function addClient(ws) {
-    console.log("addClient");
+export function addWSClient(ws) {
+    console.log(">addWSClient" );
+ 
     ws.onclose = () => remove(ws);
 
     clientData.push({
         ws,
         "connected since": now(),
-        private: true
+        "id":sequence++
     });
 }
 
 function send() {
-    const clients = [...serverClients];
     clientData.forEach(o => {
         const data = Object.assign({
-            "client no": clients.indexOf(o.ws)+1,
+            "client count": clients.size,
             "sent at":  now()
         }, o);
         delete data.ws;
         o.ws.send(JSON.stringify(data));
     });
 
-    setTimeout(send, 1567);
+    setTimeout(send, 1000);
 }
