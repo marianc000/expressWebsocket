@@ -1,39 +1,34 @@
-import { now } from './time.js';
-
-
 let clientData = [];
-setTimeout(send);
-
 
 function remove(res) {
     console.log('sse closed');
     clientData = clientData.filter(o => o.res !== res);
 }
+
 let sequence = 1;
 
 export function addSSEClient(req, res) {
-    console.log(">addSSEClient");
     req.on('close', () => remove(res));
 
     clientData.push({
         res,
-        "connected since": now(),
-        "id": sequence++
+        clientNo: sequence++,
+        messageNo: 1
     });
 }
 
 function send() {
-    console.log(">send",clientData.length);
     clientData.forEach(o => {
-        const data = Object.assign({
-            "client count": clientData.length,
-            "sent at": now()
-        }, o);
-        delete data.res;
-        o.res.write(`data: ${JSON.stringify(data)}\n\n`);
+        const data = JSON.stringify({
+            clientCount: clientData.length,
+            clientNo: o.clientNo,
+            messageNo: o.messageNo++
+        });
+
+        o.res.write(`data: ${data}\n\n`);
     });
-    console.log("<send");
-    setTimeout(send, 990);
+
+    setTimeout(send, 1000);
 }
 
-
+setTimeout(send);

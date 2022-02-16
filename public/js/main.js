@@ -19,7 +19,7 @@ socket.onmessage = e => {
 }
 
 const source = new EventSource("/sse");
-source.onmessage = function(e) {
+source.onmessage =  (e)=> {
   const data = JSON.parse(e.data);
   displaySSE(data);
 };

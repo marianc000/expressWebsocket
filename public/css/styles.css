@@ -99,11 +99,11 @@ div#outputDiv>div:first-child {
 div#outputDiv th {
   /* word-break: break-word; */
   white-space: break-spaces;
-  max-width: 4em;
+  max-width: 6em;
 }
 
 iframe {
-  width: 45em;
+  width: 38em;
   height: 6em;
 }
 

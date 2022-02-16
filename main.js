@@ -1,15 +1,12 @@
 import express from 'express';
-import ew from 'express-ws';
+import expressWs from 'express-ws';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { initWS, addWSClient } from './ws.js';
-import {  addSSEClient } from './sse.js';
-//import { addClient,startPrivate } from './private.js';
-const app = express();
-const expressWs = ew(app);
+import { addWSClient } from './ws.js';
+import { addSSEClient } from './sse.js';
 
-initWS(expressWs.getWss().clients);
- 
+const app = express();
+expressWs(app);
 
 app.ws('/ws', (ws, req) => {
     addWSClient(ws);
@@ -34,5 +31,5 @@ app.all('/data', (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`Listening on port ${port}`)
 })

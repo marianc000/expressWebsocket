@@ -18,12 +18,12 @@ function addToList(data, list) {
 
 export function displayWS(data) {
     addToList(data, targeted);
-    privateDiv.innerHTML = objectsToTable(targeted, "ws message");
+    privateDiv.innerHTML = objectsToTable(targeted, "ws");
 }
 
 export function displaySSE(data) {
     addToList(data, broadcast);
-    broadcastDiv.innerHTML = objectsToTable(broadcast, "sse message");
+    broadcastDiv.innerHTML = objectsToTable(broadcast, "sse");
 }
 
 export function objectsToTable(ar, caption) {
