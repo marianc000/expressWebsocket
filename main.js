@@ -18,8 +18,7 @@ app.ws('/ws', (ws, req) => {
 app.get('/sse', (req, res) => {
     res.writeHead(200, {
         'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
+        'Cache-Control': 'no-cache'//,        'Connection': 'keep-alive'
     });
     addSSEClient(req, res);
 });
