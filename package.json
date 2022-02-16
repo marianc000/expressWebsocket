@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,8 @@
   "dependencies": {
     "express": "^4.17.2",
     "express-ws": "^5.0.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
